@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUNÇÕES DE CALLBACK_Sistema Métrico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        form {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Conversão Sistema Métrico</h1>
+    <form id="form">
+        <label for="vlrMetro">Insira o Valor em Metros</label>
+        <input type="number" name="vlrMetro" id="vlrMetro">
+        <label for="sistImperial">Escolha o Sistema Imperial:</label>
+        <select name="sistImperial" id="sistImperial">
+            <option value="jardas">Jardas</option>
+            <option value="pe">Pé</option>
+            <option value="polegada">Polegada</option>
+            <option value="milha">Milha</option>
+        </select>
+        <button type="button" onclick="handleClick()">Converter</button>
+    </form>
+    <h2>Valor: <span id="result"></span></h2>
+    </div>
+    <script>
+        const calcularConversao = (vlrMetro, sistImperial, callback) => {
+            let resultado;
+            switch(sistImperial) {
+                case "jardas":
+                    resultado = (vlrMetro * 1.094);
+                    callback(resultado);
+                    break;
+                case "pe":
+                    resultado = (vlrMetro * 3.281);
+                    callback(resultado);
+                    break;
+                case "polegada":
+                    resultado = (vlrMetro * 39.37);
+                    callback(resultado);
+                    break;
+                case "milha":
+                    resultado = (vlrMetro * 0.000621);
+                    callback(resultado);
+                    break;         
+                default:
+                    alert('Operação Inválida!');
+                    return;
+            }
+        }        
+        const displayResult = (resultado) => {
+            document.getElementById('result').textContent = resultado.toFixed(6);
+        }        
+        const handleClick = () => {
+            const vlrMetro = parseFloat(document.getElementById('vlrMetro').value);
+            const sistImperial = document.getElementById('sistImperial').value;
+            
+            calcularConversao(vlrMetro, sistImperial, displayResult);
+        }
+    </script>
+</body>
+</html>
